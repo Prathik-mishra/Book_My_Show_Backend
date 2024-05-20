@@ -2,6 +2,7 @@ package com.acciojob.Book_My_show_Backend.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.time.LocalTime;
 @Entity
 @Data
 @Table(name = "shows")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Show {

@@ -111,6 +111,9 @@ public class TheaterService {
             theaterSeatList.add(theaterSeat);
         }
 
+        theater.setTheaterSeatList(theaterSeatList);
+        theaterRepository.save(theater);
+
         theaterSeatsRepository.saveAll(theaterSeatList);
         return "The theater seats have been associated";
     }
