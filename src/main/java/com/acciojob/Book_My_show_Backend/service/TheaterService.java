@@ -44,9 +44,9 @@ public class TheaterService {
 
         //for classic seats:
         int noOfRowsOfClassicSeats = noOfClassicSeats/5;
-        int noOfSeatsInLastRow = noOfClassicSeats%5;
+        int noOfSeatsInLastRowClassic = noOfClassicSeats%5;
         int row;
-        for(row=1; row<=noOfClassicSeats; row++){
+        for(row=1; row<=noOfRowsOfClassicSeats; row++){
             for(int j=0; j<5; j++){
                 char ch = (char)('A' + j);
 
@@ -62,7 +62,7 @@ public class TheaterService {
         }
 
         //for last row:
-        for(int j=0; j<noOfSeatsInLastRow; j++){
+        for(int j=0; j<noOfSeatsInLastRowClassic; j++){
             char ch = (char)('A' + j);
 
             String seatNo = "" + row + ch;
@@ -77,8 +77,11 @@ public class TheaterService {
 
         //for premium seats:
         int noOfRowsOfPremiumSeats = noOfClassicSeats/5;
-        noOfSeatsInLastRow = noOfPremiumSeats%5;
-        int currentRow = row+1;
+        int noOfSeatsInLastRowPremium = noOfPremiumSeats%5;
+        int currentRow = row;
+        if(noOfSeatsInLastRowClassic>0){
+            currentRow++;
+        }
         for(row = currentRow; row<=noOfRowsOfPremiumSeats+currentRow-1; row++){
             for(int j=0; j<5; j++){
                 char ch = (char)('A' + j);
@@ -95,7 +98,7 @@ public class TheaterService {
         }
 
         //for last row:
-        for(int j=0; j<noOfSeatsInLastRow; j++){
+        for(int j=0; j<noOfSeatsInLastRowPremium; j++){
             char ch = (char)('A' + j);
 
             String seatNo = "" + row + ch;
