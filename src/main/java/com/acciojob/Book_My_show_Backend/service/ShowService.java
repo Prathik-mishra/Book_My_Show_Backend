@@ -58,6 +58,8 @@ public class ShowService {
             showSeatList.add(showSeat);
         }
 
+        //setting the bidirectional mapping attribute:
+        show.setShowSeatList(showSeatList);
         showSeatRepository.saveAll(showSeatList);
 
         return "The show has been saved to the db with the showId "+show.getShowId();
