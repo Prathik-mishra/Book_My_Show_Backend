@@ -6,6 +6,7 @@ import com.acciojob.Book_My_show_Backend.Repository.ShowSeatRepository;
 import com.acciojob.Book_My_show_Backend.Repository.TicketRepository;
 import com.acciojob.Book_My_show_Backend.Repository.UserRepository;
 import com.acciojob.Book_My_show_Backend.Requests.BookTicketRequest;
+import com.acciojob.Book_My_show_Backend.Responses.TicketResponse;
 import com.acciojob.Book_My_show_Backend.model.Show;
 import com.acciojob.Book_My_show_Backend.model.ShowSeat;
 import com.acciojob.Book_My_show_Backend.model.Ticket;
@@ -29,7 +30,7 @@ public class TicketService {
 
     @Autowired
     private TicketRepository ticketRepository;
-    public Ticket bookTicket(BookTicketRequest bookTicketRequest){
+    public String bookTicket(BookTicketRequest bookTicketRequest){
 
         //find the show Entity
         Show show = showRepository.findById(bookTicketRequest.getShowId()).get();
@@ -48,11 +49,10 @@ public class TicketService {
                 showSeat.setIsBooked(Boolean.TRUE);
 
                 if(showSeat.getSeatType().equals(SeatType.CLASSIC)){
-                    totalAmount += 100;
+                    totalAmount = totalAmount + 100;
                 }else{
-                    totalAmount += 150;
+                    totalAmount = totalAmount + 150;
                 }
-
             }
         }
 
@@ -63,6 +63,7 @@ public class TicketService {
                 .movieName(show.getMovie().getMovieName())
                 .theaterName(show.getTheater().getName())
                 .totalAmount(totalAmount)
+                .bookedSeats(bookTicketRequest.getRequestedSeats().toString())
                 .show(show)
                 .user(user)
                 .build();
@@ -71,8 +72,21 @@ public class TicketService {
         ticket = ticketRepository.save(ticket);
 
         // save the ticket into db and return ticket entity (ticket response)
-        return ticket;
+        return ticket.getTicketId();
+    }
 
+    public TicketResponse generateTicket(String ticketId){
 
+        Ticket ticket = ticketRepository.findById(ticketId).get();
+
+        TicketResponse ticketResponse = TicketResponse.builder().bookedSeats(ticket.getBookedSeats())
+                .movieName(ticket.getMovieName())
+                .showTime(ticket.getShowTime())
+                .showDate(ticket.getShowDate())
+                .theaterName(ticket.getTheaterName())
+                .totalAmount(ticket.getTotalAmount())
+                .build();
+
+        return ticketResponse;
     }
 }
