@@ -23,7 +23,8 @@ public class MoviesController {
     }
 
     @PutMapping("updateMovie")
-    public ResponseEntity updateMovie(@RequestBody UpdateMovieRequest updateMovieRequest){
+    public ResponseEntity updateMovieAttributes(@RequestBody UpdateMovieRequest updateMovieRequest){
+
         String response = movieService.updateMovie(updateMovieRequest);
         return new ResponseEntity(response,HttpStatus.OK);
     }

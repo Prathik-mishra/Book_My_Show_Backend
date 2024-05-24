@@ -10,5 +10,5 @@ public class AddUserRequest {
 
     private String emailId;
 
-    private String mobileNo;
+    private String mobNo;
 }
