@@ -26,7 +26,7 @@ BookMyShowBackend is a Spring Boot application designed to manage the backend op
 
 - Java 11 or higher
 - Maven
-- MySQ
+- MySQL
 - postman (for checking endpoints easily).
 
 ## Getting Started
